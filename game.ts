@@ -1,12 +1,10 @@
-// ── Types ────────────────────────────────────────────────────────────────────
-
 interface Upgrade {
   id: string;
   name: string;
   description: string;
   baseCost: number;
-  baseCps: number;        // cookies per second when owned
-  baseClickBonus: number; // bonus per click when owned
+  baseCps: number;
+  baseClickBonus: number;
   count: number;
   emoji: string;
 }
@@ -16,8 +14,6 @@ interface Milestone {
   label: string;
   unlocked: boolean;
 }
-
-// ── State ────────────────────────────────────────────────────────────────────
 
 let cookies = 0;
 let totalCookies = 0;
@@ -42,8 +38,6 @@ const milestones: Milestone[] = [
   { threshold: 1000000,   label: "Cookie Overlord",    unlocked: false },
 ];
 
-// ── DOM refs ─────────────────────────────────────────────────────────────────
-
 const cookieEl      = document.getElementById("cookie") as HTMLElement;
 const countEl       = document.getElementById("cookie-count") as HTMLElement;
 const cpsEl         = document.getElementById("cps") as HTMLElement;
@@ -53,8 +47,6 @@ const shopEl        = document.getElementById("shop-list") as HTMLElement;
 const milestoneEl   = document.getElementById("milestone-banner") as HTMLElement;
 const toastEl       = document.getElementById("toast") as HTMLElement;
 
-// ── Formatting ───────────────────────────────────────────────────────────────
-
 function fmt(n: number): string {
   if (n >= 1e12) return (n / 1e12).toFixed(2) + "T";
   if (n >= 1e9)  return (n / 1e9).toFixed(2) + "B";
@@ -63,13 +55,9 @@ function fmt(n: number): string {
   return Math.floor(n).toString();
 }
 
-// ── Cost scaling ──────────────────────────────────────────────────────────────
-
 function upgradeCost(u: Upgrade): number {
   return Math.ceil(u.baseCost * Math.pow(1.15, u.count));
 }
-
-// ── Particles ────────────────────────────────────────────────────────────────
 
 function spawnParticles(x: number, y: number, count = 12): void {
   for (let i = 0; i < count; i++) {
@@ -91,8 +79,6 @@ function spawnParticles(x: number, y: number, count = 12): void {
     p.addEventListener("animationend", () => p.remove());
   }
 }
-
-// ── Click handler ────────────────────────────────────────────────────────────
 
 function handleCookieClick(e: MouseEvent): void {
   const gained = clickPower;
@@ -119,8 +105,6 @@ function handleCookieClick(e: MouseEvent): void {
 }
 
 cookieEl.addEventListener("click", handleCookieClick);
-
-// ── Shop ──────────────────────────────────────────────────────────────────────
 
 function buildShop(): void {
   shopEl.innerHTML = "";
@@ -162,8 +146,6 @@ function buyUpgrade(u: Upgrade): void {
   buildShop();
 }
 
-// ── Milestones ────────────────────────────────────────────────────────────────
-
 function checkMilestones(): void {
   milestones.forEach(m => {
     if (!m.unlocked && totalCookies >= m.threshold) {
@@ -179,8 +161,6 @@ function showMilestone(label: string): void {
   setTimeout(() => milestoneEl.classList.remove("show"), 3000);
 }
 
-// ── Toast ────────────────────────────────────────────────────────────────────
-
 let toastTimer: ReturnType<typeof setTimeout> | null = null;
 function showToast(msg: string): void {
   toastEl.textContent = msg;
@@ -188,8 +168,6 @@ function showToast(msg: string): void {
   if (toastTimer) clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2000);
 }
-
-// ── Passive income ────────────────────────────────────────────────────────────
 
 let lastTick = performance.now();
 function tick(now: number): void {
@@ -206,8 +184,6 @@ function tick(now: number): void {
   updateUI();
   requestAnimationFrame(tick);
 }
-
-// ── UI update ────────────────────────────────────────────────────────────────
 
 function updateUI(): void {
   countEl.textContent = fmt(cookies);
@@ -226,8 +202,6 @@ function updateUI(): void {
     if (ownedEl) ownedEl.textContent = `${u.count} owned`;
   });
 }
-
-// ── Boot ─────────────────────────────────────────────────────────────────────
 
 buildShop();
 requestAnimationFrame(tick);

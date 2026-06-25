@@ -1,5 +1,3 @@
-/* ── Reset & Base ─────────────────────────────────────────────────────────── */
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -26,7 +24,6 @@ html, body {
   overflow: hidden;
 }
 
-/* ── Ambient orbs ────────────────────────────────────────────────────────── */
 
 .bg-orb {
   position: fixed;
@@ -59,8 +56,6 @@ html, body {
 
 @keyframes drift1 { to { transform: translate(40px, 30px); } }
 @keyframes drift2 { to { transform: translate(-30px, -40px); } }
-
-/* ── Layout ──────────────────────────────────────────────────────────────── */
 
 .layout {
   position: relative;
@@ -109,8 +104,6 @@ html, body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
-/* ── Cookie stage ────────────────────────────────────────────────────────── */
 
 .cookie-stage {
   position: relative;
@@ -237,8 +230,6 @@ html, body {
   0%   { transform: translateY(0);    opacity: 1; }
   100% { transform: translateY(-60px); opacity: 0; }
 }
-
-/* ── Stats ───────────────────────────────────────────────────────────────── */
 
 .stats { margin-top: auto; }
 
@@ -421,8 +412,6 @@ html, body {
   letter-spacing: 0.05em;
 }
 
-/* ── Milestone banner ────────────────────────────────────────────────────── */
-
 #milestone-banner {
   position: fixed;
   top: 24px;
@@ -444,8 +433,6 @@ html, body {
 
 #milestone-banner.show { transform: translateX(-50%) translateY(0); }
 
-/* ── Toast ───────────────────────────────────────────────────────────────── */
-
 #toast {
   position: fixed;
   bottom: 32px;
@@ -465,8 +452,6 @@ html, body {
 }
 
 #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-
-/* ── Reduced motion ──────────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }

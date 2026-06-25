@@ -1,6 +1,5 @@
 "use strict";
-// ── Types ────────────────────────────────────────────────────────────────────
-// ── State ────────────────────────────────────────────────────────────────────
+
 let cookies = 0;
 let totalCookies = 0;
 let cookiesPerSecond = 0;
@@ -21,7 +20,6 @@ const milestones = [
     { threshold: 100000, label: "Biscuit Baron", unlocked: false },
     { threshold: 1000000, label: "Cookie Overlord", unlocked: false },
 ];
-// ── DOM refs ─────────────────────────────────────────────────────────────────
 const cookieEl = document.getElementById("cookie");
 const countEl = document.getElementById("cookie-count");
 const cpsEl = document.getElementById("cps");
@@ -30,7 +28,7 @@ const particleLayer = document.getElementById("particle-layer");
 const shopEl = document.getElementById("shop-list");
 const milestoneEl = document.getElementById("milestone-banner");
 const toastEl = document.getElementById("toast");
-// ── Formatting ───────────────────────────────────────────────────────────────
+
 function fmt(n) {
     if (n >= 1e12)
         return (n / 1e12).toFixed(2) + "T";
@@ -42,11 +40,11 @@ function fmt(n) {
         return (n / 1e3).toFixed(1) + "K";
     return Math.floor(n).toString();
 }
-// ── Cost scaling ──────────────────────────────────────────────────────────────
+
 function upgradeCost(u) {
     return Math.ceil(u.baseCost * Math.pow(1.15, u.count));
 }
-// ── Particles ────────────────────────────────────────────────────────────────
+
 function spawnParticles(x, y, count = 12) {
     for (let i = 0; i < count; i++) {
         const p = document.createElement("div");
@@ -67,7 +65,7 @@ function spawnParticles(x, y, count = 12) {
         p.addEventListener("animationend", () => p.remove());
     }
 }
-// ── Click handler ────────────────────────────────────────────────────────────
+
 function handleCookieClick(e) {
     const gained = clickPower;
     cookies += gained;
@@ -89,7 +87,7 @@ function handleCookieClick(e) {
     updateUI();
 }
 cookieEl.addEventListener("click", handleCookieClick);
-// ── Shop ──────────────────────────────────────────────────────────────────────
+
 function buildShop() {
     shopEl.innerHTML = "";
     upgrades.forEach(u => {
@@ -126,7 +124,7 @@ function buyUpgrade(u) {
     updateUI();
     buildShop();
 }
-// ── Milestones ────────────────────────────────────────────────────────────────
+
 function checkMilestones() {
     milestones.forEach(m => {
         if (!m.unlocked && totalCookies >= m.threshold) {
@@ -140,7 +138,7 @@ function showMilestone(label) {
     milestoneEl.classList.add("show");
     setTimeout(() => milestoneEl.classList.remove("show"), 3000);
 }
-// ── Toast ────────────────────────────────────────────────────────────────────
+
 let toastTimer = null;
 function showToast(msg) {
     toastEl.textContent = msg;
@@ -149,7 +147,7 @@ function showToast(msg) {
         clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2000);
 }
-// ── Passive income ────────────────────────────────────────────────────────────
+
 let lastTick = performance.now();
 function tick(now) {
     const dt = (now - lastTick) / 1000;
@@ -163,12 +161,12 @@ function tick(now) {
     updateUI();
     requestAnimationFrame(tick);
 }
-// ── UI update ────────────────────────────────────────────────────────────────
+
 function updateUI() {
     countEl.textContent = fmt(cookies);
     cpsEl.textContent = `${fmt(cookiesPerSecond)}/s`;
     cpcEl.textContent = `${fmt(clickPower)} per click`;
-    // Refresh affordability highlights without full rebuild
+    
     document.querySelectorAll(".shop-item").forEach(li => {
         const u = upgrades.find(up => up.id === li.dataset.id);
         if (!u)
@@ -183,7 +181,6 @@ function updateUI() {
             ownedEl.textContent = `${u.count} owned`;
     });
 }
-// ── Boot ─────────────────────────────────────────────────────────────────────
+
 buildShop();
 requestAnimationFrame(tick);
-//# sourceMappingURL=game.js.map
