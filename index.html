@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookie Couture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
+  <!-- Ambient background orbs -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <!-- Milestone banner -->
+  <div id="milestone-banner"></div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <div class="layout">
+
+    <!-- ── LEFT: Cookie ─────────────────────────── -->
+    <section class="panel panel-left">
+      <header class="brand">
+        <div class="brand-tag">Maison de</div>
+        <h1 class="brand-name">Cookie<br>Couture</h1>
+      </header>
+
+      <div class="cookie-stage">
+        <div id="particle-layer"></div>
+        <div id="cookie" role="button" aria-label="Click for cookies">
+          <div class="cookie-inner">
+            <span class="cookie-emoji">🍪</span>
+          </div>
+          <div class="cookie-glow"></div>
+          <div class="cookie-ring ring-1"></div>
+          <div class="cookie-ring ring-2"></div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-main">
+          <span id="cookie-count">0</span>
+          <span class="stat-unit">cookies</span>
+        </div>
+        <div class="stat-sub-row">
+          <div class="stat-sub">
+            <div class="stat-label">Per seconde</div>
+            <div class="stat-value" id="cps">0/s</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-sub">
+            <div class="stat-label">Per klik</div>
+            <div class="stat-value" id="cpc">1 per click</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── RIGHT: Shop ──────────────────────────── -->
+    <section class="panel panel-right">
+      <div class="shop-header">
+        <h2 class="shop-title">Boutique</h2>
+        <div class="shop-subtitle">Invest in decadence</div>
+      </div>
+
+      <ul id="shop-list"></ul>
+    </section>
+
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
